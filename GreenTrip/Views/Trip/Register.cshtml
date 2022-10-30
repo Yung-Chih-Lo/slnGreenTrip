@@ -1,0 +1,108 @@
+﻿@model GreenTrip.Models.User
+
+@{
+    ViewBag.Title = "註冊";
+}
+<style>
+
+    #container {
+        margin: 0 auto;
+        width: 100%;
+        align-content: center
+    }
+
+    .modal-header {
+        justify-content: center
+    }
+
+    input {
+        max-width: 480px;
+    }
+    h2{
+        color:black
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"],
+    input[type="radio"],
+    select,
+    textarea {
+        color: black;
+        background-color: darkgrey
+    }
+</style>
+
+<div class="modal modal-signin position-static d-block py-5" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h2 class="modal-title">會員註冊</h2>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                @using (Html.BeginForm("Register", "Trip", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-floating mb-3 col-sm-12">
+                        <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="帳號" name="accountName" >
+                        @Html.ValidationMessageFor(model => model.accountName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="密碼" name="password">
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="確認密碼" name="secPwd">
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-3" id="floatingInput" placeholder="名字" name="nickName">
+                        @Html.ValidationMessageFor(model => model.nickName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-floating mb-3 w-100">
+                        <input type="number" min="1" max="100" class="form-control rounded-3" id="floatingInput" placeholder="年齡" name="age">
+                        @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" id="inlineRadio1" value="option1">
+                        <label class="form-check-label" for="inlineRadio1">男</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2">女</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="sex" id="inlineRadio3" value="option3">
+                        <label class="form-check-label" for="inlineRadio3">其他</label>
+                    </div>
+                    <button type="submit" class="w-100 mb-2 btn btn-lg rounded-3 btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">註冊</button>
+                    <p class="text-danger">@ViewBag.Err</p>
+                    <div style="text-align:center">
+                        已經有帳號了嗎? @Html.ActionLink("登入", "Login")
+                    </div>
+                    @*<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    確定要註冊嗎
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">確定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+

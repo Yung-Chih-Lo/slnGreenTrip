@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="db6f62c55b8c4b5bb9e2ec2889313e0e" Name="Diagram1">
+        <EntityTypeShape EntityType="GreenTripModel.City" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.County" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.Feedback" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.Journey" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.JourneySite" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.Owner" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.Site" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.SitePerference" Width="1.5" PointX="7.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.User" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GreenTripModel.UserPerference" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <AssociationConnector Association="GreenTripModel.FK_City_County" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_Location_City" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_Feedback_User" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_Journey_User" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_JourneyLocation_Journey" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_JourneyLocation_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_Location_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_LocationPerference_Location" ManuallyRouted="false" />
+        <AssociationConnector Association="GreenTripModel.FK_UserPerference_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

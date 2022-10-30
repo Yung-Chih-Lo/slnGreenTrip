@@ -1,0 +1,53 @@
+﻿
+
+
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>綠遊經 - 結果</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="~/assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload" style="color:black">
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <article id="main">
+            <!-- Main -->
+            <div class="wrapper fadeInDown" >
+                <div id="formContent">
+                    <div class="fadeIn first">
+                        <span class="glyphicon glyphicon-user"></span>會員登入
+                    </div>
+
+                    <!-- Login Form -->
+                    @using (Html.BeginForm("Login", "Trip", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <p>
+                            <input type="text" id="login" class="fadeIn second" name="Id" placeholder="帳號(test123)">
+                            <input type="password" id="password" class="fadeIn third" name="Pwd" placeholder="密碼(123456)">
+                        </p>
+                        <p>
+                            <input type="submit" class="fadeIn fourth" value="登入">
+                        </p>
+                        <p class="text-danger">
+                            @ViewBag.Err
+                        </p>
+                    }
+                    <!-- Remind Register-->
+                    <div id="formFooter">
+                        <a class="underlineHover" href="~/Home/Register">還沒有註冊?</a>
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html>

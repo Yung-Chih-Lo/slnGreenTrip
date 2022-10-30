@@ -1,0 +1,160 @@
+﻿@model IEnumerable<GreenTrip.Models.Site>
+
+@{
+    List<String> CityNameList = ViewBag.CityNameList;
+    List<String> CityIdList = ViewBag.CityIdList;
+}
+
+
+<head>
+    <title>綠遊經 - 結果</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+</head>
+
+<article id="main">
+    <header>
+        <h2>以下是我們推薦的景點</h2>
+    </header>
+    <section class="wrapper style5">
+        <div class="inner">
+            <div>
+                <h2 style="font-size:2em">美食</h2>
+                <div>
+                    <h2 style="font-size:1.75em">台南市</h2>
+                    <div>
+                        @for (int i = 0; i < CityNameList.Count(); i++)
+                        {
+
+                            bool exist = false;
+                            foreach (var item in Model)
+                            {
+                                if (CityIdList[i] == item.cityId)
+                                {
+                                    exist = true;
+                                }
+                            }
+                            if (exist)
+                            {
+                                <h3 style="font-size:1.5em">
+                                    @CityNameList[i]
+                                </h3>
+                            }
+                            foreach (var item in Model)
+                            {
+                                if (item.type == "Restaurant" && item.cityId == CityIdList[i])
+                                {
+                                    var link = $"/images/food/{item.siteName}.jpg";
+                                    <div style="overflow: auto; ">
+                                        <div style="display: inline-block">
+                                            <h4>@item.siteName</h4>
+                                            <p><a href="https://www.google.com.tw/maps/place/@item.address" class="button primary" target="_blank">google地圖</a></p>
+                                            <input type="checkbox" id="@item.siteId" name="choose" />
+                                            <label for="@item.siteId">加入行程</label>
+                                        </div>
+                                        <div class="image" style="display: inline-block; float:right;width: 30%;"><img style="width: 80%;" src="@link" /></div>
+                                    </div>
+                                    <hr />
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 style="font-size:2em">景點</h2>
+                <div>
+                    <h2 style="font-size:1.75em">台南市</h2>
+
+                    <div>
+                        @for (int i = 0; i < CityNameList.Count(); i++)
+                        {
+                            bool exist = false;
+                            foreach (var item in Model)
+                            {
+                                if (CityIdList[i] == item.cityId)
+                                {
+                                    exist = true;
+                                }
+                            }
+                            if (exist)
+                            {
+                                <h3 style="font-size:1.5em">
+                                    @CityNameList[i]
+                                </h3>
+                            }
+                            foreach (var item in Model)
+                            {
+                                if (item.type == "Attraction" && item.cityId == CityIdList[i])
+                                {
+                                    var link = $"/images/attraction/{item.siteName}.jpg";
+                                    <div style="overflow: auto; ">
+                                        <div style="display: inline-block">
+                                            <h4>@item.siteName</h4>
+                                            <p><a href="https://www.google.com.tw/maps/place/@item.address" class="button primary" target="_blank">google地圖</a></p>
+                                            <input type="checkbox" id="@item.siteId" name="choose" />
+                                            <label for="@item.siteId">加入行程</label>
+                                        </div>
+                                        <div class="image" style="display: inline-block; float:right;width: 30%;"><img style="width: 80%;" src="@link" /></div>
+                                    </div>
+                                    <hr />
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div>
+                    <h2 style="font-size:2em">旅館</h2>
+                    <div>
+                        <h2 style="font-size:1.75em">台南市</h2>
+
+                        <div>
+                            @for (int i = 0; i < CityNameList.Count(); i++)
+                            {
+                                bool exist = false;
+                                foreach (var item in Model)
+                                {
+                                    if (CityIdList[i] == item.cityId)
+                                    {
+                                        exist = true;
+                                    }
+                                }
+                                if (exist)
+                                {
+                                    <h3 style="font-size:1.5em">
+                                        @CityNameList[i]
+                                    </h3>
+                                }
+                                foreach (var item in Model)
+                                {
+                                    if (item.type == "Hotel" && item.cityId == CityIdList[i])
+                                    {
+                                        var link = $"/images/hotel/{item.siteName}.jpg";
+                                        <div style="overflow: auto; ">
+                                            <div style="display: inline-block">
+                                                <h4>@item.siteName</h4>
+                                                <p><a href="https://www.google.com.tw/maps/place/@item.address" class="button primary" target="_blank">google地圖</a></p>
+                                                <input type="checkbox" id="@item.siteId" name="choose" />
+                                                <label for="@item.siteId">加入行程</label>
+                                            </div>
+                                            <div class="image" style="display: inline-block; float:right;width: 30%;"><img style="width: 80%;" src="@link" /></div>
+                                        </div>
+                                        <hr />
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center">
+            <a href="~/Trip/Path" class="button primary">顯示結果</a>
+        </div>
+    </section>
+</article>
+
+
+
+

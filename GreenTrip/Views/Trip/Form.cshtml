@@ -1,0 +1,180 @@
+﻿
+@{
+    List<GreenTrip.Models.County> CountyList = ViewBag.CountyList;
+}
+<head>
+    <title>綠遊經 - 表單</title>
+</head>
+<!-- Main -->
+<article id="main">
+    <header>
+        <h2>告訴我你的喜好</h2>
+        <p>這樣可以讓我更快了解你的需求喔！！</p>
+    </header>
+    <section id="three" class="wrapper style3 special">
+        <div class="inner">
+            <header class="major">
+            </header>
+            <ul class="features">
+                <li style="width:100%">
+                    <p>
+                        <h3>你在巷弄間穿梭，突然一間餐廳印入眼簾，你看到的會是....</h3>
+
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy1_1" name="psy1">
+                            <label for="psy1_1">傳統小吃店</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy1_2" name="psy1">
+                            <label for="psy1_2">裝潢新穎的咖啡廳</label>
+                        </div>
+
+                    </p>
+                </li>
+                <li style="width:100%">
+                    <p>
+                        <h3>你由於加班到太晚，錯過了可以回家的末班電車，接下來你會....</h3>
+
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy2_1" name="psy2">
+                            <label for="psy2_1">趕緊尋求替代方案</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy2_2" name="psy2">
+                            <label for="psy2_2">打電話跟朋友抱怨</label>
+                        </div>
+
+                    </p>
+                </li>
+                <li style="width:100%">
+                    <p>
+                        <h3>當上司交付給你額外的工作時，你會如何安排接下來的時間....</h3>
+
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy3_1" name="psy3">
+                            <label for="psy3_1">馬上開始動工，盡自己所能做到最好</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy3_2" name="psy3">
+                            <label for="psy3_2">快到截止日期時隨便做做交差了事</label>
+                        </div>
+
+                    </p>
+                </li>
+                <li style="width:100%">
+                    <p>
+                        <h3>從學校畢業後到了一個新環境，你會....</h3>
+
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy4_1" name="psy4">
+                            <label for="psy4_1">試圖快速的認識周圍的人</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy4_2" name="psy4">
+                            <label for="psy4_2">除非別人主動找我要不然一律不搭話</label>
+                        </div>
+
+                    </p>
+                </li>
+                <li style="width:100%">
+                    <p>
+                        <h3>發現遺落在地上的錢包了，你會....</h3>
+
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy5_1" name="psy5">
+                            <label for="psy5_1">把它拿到警察局</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="psy5_2" name="psy5">
+                            <label for="psy5_2">不理它</label>
+                        </div>
+
+                    </p>
+                </li>
+                <li class="icon fa-paper-plane" style="width:50%">
+                    <h3>交通工具</h3>
+                    <p>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="transport1" name="transport">
+                            <label for="transport1">機車</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="transport2" name="transport">
+                            <label for="transport2">汽車</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="transport3" name="transport">
+                            <label for="transport3">其他</label>
+                        </div>
+                    </p>
+                </li>
+                <li class="icon solid fa-laptop" style="width:50%">
+                    <h3>旅伴</h3>
+                    <p>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="companion1" name="companion">
+                            <label for="companion1">家庭</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="companion2" name="companion">
+                            <label for="companion2">伴侶</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="companion3" name="companion">
+                            <label for="companion3">朋友</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="companion4" name="companion">
+                            <label for="companion4">孤單一人...</label>
+                        </div>
+                    </p>
+                </li>
+
+                <li class="icon solid fa-headphones-alt" style="width:50%">
+                    <h3>旅遊天數</h3>
+                    <p>
+                        <div class="col-12">
+                            <select name="travelDay" id="demo-category">
+                                <option value="1">1天</option>
+                                <option value="2">2天</option>
+                                <option value="3">3天</option>
+                                <option value="4">4天</option>
+                                <option value="5">5天</option>
+                                <option value="6">6天</option>
+                                <option value="7">7天</option>
+                            </select>
+                        </div>
+                    </p>
+                </li>
+                <li class="icon fa-flag" style="width:50%">
+                    <h3>飲食習慣</h3>
+                    <p>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="meat" name="foodstyle">
+                            <label for="meat">葷食</label>
+                        </div>
+                        <div class="col-4 col-12-small">
+                            <input type="radio" id="vegetable" name="foodstyle">
+                            <label for="vegetable">素食</label>
+                        </div>
+                    </p>
+                </li>
+
+                <li class="icon fa-heart" style="width:100%">
+                    <h3>縣市</h3>
+                    <p>
+                        <div class="col-4 col-12-small">
+                            @foreach (var item in CountyList)
+                            {
+                                <input type="checkbox" id="@item.countyId" name="counties">
+                                <label for="@item.countyId">@item.countyName</label>
+                            }
+                        </div>
+                    </p>
+                </li>
+
+            </ul>
+        </div>
+        <a href="~/Trip/Place" class="button primary">下一步</a>
+    </section>
+</article>

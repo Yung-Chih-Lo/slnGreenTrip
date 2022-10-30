@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GreenTripModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="cityId" />
+          </Key>
+          <Property Name="cityId" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="countyId" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="cityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="countyId" />
+          </Key>
+          <Property Name="countyId" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="countyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackId" />
+          </Key>
+          <Property Name="feedbackId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="userId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="context" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Journey">
+          <Key>
+            <PropertyRef Name="journeyId" />
+          </Key>
+          <Property Name="journeyId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="userId" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JourneySite">
+          <Key>
+            <PropertyRef Name="journeyLocationId" />
+          </Key>
+          <Property Name="journeyLocationId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="journeyId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="locationId" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="ownerId" />
+          </Key>
+          <Property Name="ownerId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ownerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteId" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="cityId" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="ownerId" Type="nchar" MaxLength="10" />
+          <Property Name="siteName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="numberOfPeople" Type="int" />
+          <Property Name="age" Type="nvarchar" MaxLength="50" />
+          <Property Name="isGreen" Type="bit" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SitePerference">
+          <Key>
+            <PropertyRef Name="perferenceId" />
+          </Key>
+          <Property Name="perferenceId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="locationId" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="perference" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="age" Type="int" Nullable="false" />
+          <Property Name="sex" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="accountName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="nickName" Type="nvarchar" MaxLength="50" />
+          <Property Name="signUpTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPerference">
+          <Key>
+            <PropertyRef Name="perferenceId" />
+          </Key>
+          <Property Name="perferenceId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="userId" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="perference" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_City_County">
+          <End Role="County" Type="Self.County" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="countyId" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="countyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journey_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Journey" Type="Self.Journey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Journey">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JourneyLocation_Journey">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="1" />
+          <End Role="JourneySite" Type="Self.JourneySite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="journeyId" />
+            </Principal>
+            <Dependent Role="JourneySite">
+              <PropertyRef Name="journeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JourneyLocation_Location">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="JourneySite" Type="Self.JourneySite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="siteId" />
+            </Principal>
+            <Dependent Role="JourneySite">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="cityId" />
+            </Principal>
+            <Dependent Role="Site">
+              <PropertyRef Name="cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Owner">
+          <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="ownerId" />
+            </Principal>
+            <Dependent Role="Site">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocationPerference_Location">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="SitePerference" Type="Self.SitePerference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="siteId" />
+            </Principal>
+            <Dependent Role="SitePerference">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerference_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerference" Type="Self.UserPerference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="UserPerference">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GreenTripModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="County" EntityType="Self.County" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journey" EntityType="Self.Journey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JourneySite" EntityType="Self.JourneySite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Site" EntityType="Self.Site" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SitePerference" EntityType="Self.SitePerference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPerference" EntityType="Self.UserPerference" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_City_County" Association="Self.FK_City_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_User" Association="Self.FK_Feedback_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journey_User" Association="Self.FK_Journey_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Journey" EntitySet="Journey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JourneyLocation_Journey" Association="Self.FK_JourneyLocation_Journey">
+            <End Role="Journey" EntitySet="Journey" />
+            <End Role="JourneySite" EntitySet="JourneySite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JourneyLocation_Location" Association="Self.FK_JourneyLocation_Location">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="JourneySite" EntitySet="JourneySite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="Self.FK_Location_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Site" EntitySet="Site" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Owner" Association="Self.FK_Location_Owner">
+            <End Role="Owner" EntitySet="Owner" />
+            <End Role="Site" EntitySet="Site" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationPerference_Location" Association="Self.FK_LocationPerference_Location">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="SitePerference" EntitySet="SitePerference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerference_User" Association="Self.FK_UserPerference_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerference" EntitySet="UserPerference" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GreenTripModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="cityId" />
+          </Key>
+          <Property Name="cityId" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="countyId" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="cityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="County" Relationship="Self.FK_City_County" FromRole="City" ToRole="County" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_Location_City" FromRole="City" ToRole="Site" />
+        </EntityType>
+        <EntityType Name="County">
+          <Key>
+            <PropertyRef Name="countyId" />
+          </Key>
+          <Property Name="countyId" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="countyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_City_County" FromRole="County" ToRole="City" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="feedbackId" />
+          </Key>
+          <Property Name="feedbackId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="context" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Feedback_User" FromRole="Feedback" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Journey">
+          <Key>
+            <PropertyRef Name="journeyId" />
+          </Key>
+          <Property Name="journeyId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Journey_User" FromRole="Journey" ToRole="User" />
+          <NavigationProperty Name="JourneySite" Relationship="Self.FK_JourneyLocation_Journey" FromRole="Journey" ToRole="JourneySite" />
+        </EntityType>
+        <EntityType Name="JourneySite">
+          <Key>
+            <PropertyRef Name="journeyLocationId" />
+          </Key>
+          <Property Name="journeyLocationId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="journeyId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="locationId" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Journey" Relationship="Self.FK_JourneyLocation_Journey" FromRole="JourneySite" ToRole="Journey" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_JourneyLocation_Location" FromRole="JourneySite" ToRole="Site" />
+        </EntityType>
+        <EntityType Name="Owner">
+          <Key>
+            <PropertyRef Name="ownerId" />
+          </Key>
+          <Property Name="ownerId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ownerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_Location_Owner" FromRole="Owner" ToRole="Site" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="siteId" />
+          </Key>
+          <Property Name="siteId" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="cityId" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ownerId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="siteName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="numberOfPeople" Type="Int32" />
+          <Property Name="age" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isGreen" Type="Boolean" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Location_City" FromRole="Site" ToRole="City" />
+          <NavigationProperty Name="JourneySite" Relationship="Self.FK_JourneyLocation_Location" FromRole="Site" ToRole="JourneySite" />
+          <NavigationProperty Name="Owner" Relationship="Self.FK_Location_Owner" FromRole="Site" ToRole="Owner" />
+          <NavigationProperty Name="SitePerference" Relationship="Self.FK_LocationPerference_Location" FromRole="Site" ToRole="SitePerference" />
+        </EntityType>
+        <EntityType Name="SitePerference">
+          <Key>
+            <PropertyRef Name="perferenceId" />
+          </Key>
+          <Property Name="perferenceId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="locationId" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="perference" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_LocationPerference_Location" FromRole="SitePerference" ToRole="Site" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="age" Type="Int32" Nullable="false" />
+          <Property Name="sex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="accountName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="signUpTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Feedback" Relationship="Self.FK_Feedback_User" FromRole="User" ToRole="Feedback" />
+          <NavigationProperty Name="Journey" Relationship="Self.FK_Journey_User" FromRole="User" ToRole="Journey" />
+          <NavigationProperty Name="UserPerference" Relationship="Self.FK_UserPerference_User" FromRole="User" ToRole="UserPerference" />
+        </EntityType>
+        <EntityType Name="UserPerference">
+          <Key>
+            <PropertyRef Name="perferenceId" />
+          </Key>
+          <Property Name="perferenceId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="userId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="perference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserPerference_User" FromRole="UserPerference" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_City_County">
+          <End Role="County" Type="Self.County" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="County">
+              <PropertyRef Name="countyId" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="countyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="cityId" />
+            </Principal>
+            <Dependent Role="Site">
+              <PropertyRef Name="cityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journey_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Journey" Type="Self.Journey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Journey">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JourneyLocation_Journey">
+          <End Role="Journey" Type="Self.Journey" Multiplicity="1" />
+          <End Role="JourneySite" Type="Self.JourneySite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journey">
+              <PropertyRef Name="journeyId" />
+            </Principal>
+            <Dependent Role="JourneySite">
+              <PropertyRef Name="journeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JourneyLocation_Location">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="JourneySite" Type="Self.JourneySite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="siteId" />
+            </Principal>
+            <Dependent Role="JourneySite">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Owner">
+          <End Role="Owner" Type="Self.Owner" Multiplicity="0..1" />
+          <End Role="Site" Type="Self.Site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Owner">
+              <PropertyRef Name="ownerId" />
+            </Principal>
+            <Dependent Role="Site">
+              <PropertyRef Name="ownerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LocationPerference_Location">
+          <End Role="Site" Type="Self.Site" Multiplicity="1" />
+          <End Role="SitePerference" Type="Self.SitePerference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="siteId" />
+            </Principal>
+            <Dependent Role="SitePerference">
+              <PropertyRef Name="locationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPerference_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPerference" Type="Self.UserPerference" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="UserPerference">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GreenTripEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="County" EntityType="Self.County" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" />
+          <EntitySet Name="Journey" EntityType="Self.Journey" />
+          <EntitySet Name="JourneySite" EntityType="Self.JourneySite" />
+          <EntitySet Name="Owner" EntityType="Self.Owner" />
+          <EntitySet Name="Site" EntityType="Self.Site" />
+          <EntitySet Name="SitePerference" EntityType="Self.SitePerference" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserPerference" EntityType="Self.UserPerference" />
+          <AssociationSet Name="FK_City_County" Association="Self.FK_City_County">
+            <End Role="County" EntitySet="County" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_City" Association="Self.FK_Location_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Site" EntitySet="Site" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_User" Association="Self.FK_Feedback_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feedback" EntitySet="Feedback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journey_User" Association="Self.FK_Journey_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Journey" EntitySet="Journey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JourneyLocation_Journey" Association="Self.FK_JourneyLocation_Journey">
+            <End Role="Journey" EntitySet="Journey" />
+            <End Role="JourneySite" EntitySet="JourneySite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JourneyLocation_Location" Association="Self.FK_JourneyLocation_Location">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="JourneySite" EntitySet="JourneySite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Owner" Association="Self.FK_Location_Owner">
+            <End Role="Owner" EntitySet="Owner" />
+            <End Role="Site" EntitySet="Site" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LocationPerference_Location" Association="Self.FK_LocationPerference_Location">
+            <End Role="Site" EntitySet="Site" />
+            <End Role="SitePerference" EntitySet="SitePerference" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPerference_User" Association="Self.FK_UserPerference_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPerference" EntitySet="UserPerference" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GreenTripModelStoreContainer" CdmEntityContainer="GreenTripEntities2">
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="GreenTripModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="cityId" ColumnName="cityId" />
+                <ScalarProperty Name="countyId" ColumnName="countyId" />
+                <ScalarProperty Name="cityName" ColumnName="cityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="County">
+            <EntityTypeMapping TypeName="GreenTripModel.County">
+              <MappingFragment StoreEntitySet="County">
+                <ScalarProperty Name="countyId" ColumnName="countyId" />
+                <ScalarProperty Name="countyName" ColumnName="countyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedback">
+            <EntityTypeMapping TypeName="GreenTripModel.Feedback">
+              <MappingFragment StoreEntitySet="Feedback">
+                <ScalarProperty Name="feedbackId" ColumnName="feedbackId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="context" ColumnName="context" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journey">
+            <EntityTypeMapping TypeName="GreenTripModel.Journey">
+              <MappingFragment StoreEntitySet="Journey">
+                <ScalarProperty Name="journeyId" ColumnName="journeyId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JourneySite">
+            <EntityTypeMapping TypeName="GreenTripModel.JourneySite">
+              <MappingFragment StoreEntitySet="JourneySite">
+                <ScalarProperty Name="journeyLocationId" ColumnName="journeyLocationId" />
+                <ScalarProperty Name="journeyId" ColumnName="journeyId" />
+                <ScalarProperty Name="locationId" ColumnName="locationId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Owner">
+            <EntityTypeMapping TypeName="GreenTripModel.Owner">
+              <MappingFragment StoreEntitySet="Owner">
+                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
+                <ScalarProperty Name="ownerName" ColumnName="ownerName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Site">
+            <EntityTypeMapping TypeName="GreenTripModel.Site">
+              <MappingFragment StoreEntitySet="Site">
+                <ScalarProperty Name="siteId" ColumnName="siteId" />
+                <ScalarProperty Name="cityId" ColumnName="cityId" />
+                <ScalarProperty Name="ownerId" ColumnName="ownerId" />
+                <ScalarProperty Name="siteName" ColumnName="siteName" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="numberOfPeople" ColumnName="numberOfPeople" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="isGreen" ColumnName="isGreen" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SitePerference">
+            <EntityTypeMapping TypeName="GreenTripModel.SitePerference">
+              <MappingFragment StoreEntitySet="SitePerference">
+                <ScalarProperty Name="perferenceId" ColumnName="perferenceId" />
+                <ScalarProperty Name="locationId" ColumnName="locationId" />
+                <ScalarProperty Name="perference" ColumnName="perference" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="GreenTripModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="accountName" ColumnName="accountName" />
+                <ScalarProperty Name="nickName" ColumnName="nickName" />
+                <ScalarProperty Name="signUpTime" ColumnName="signUpTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPerference">
+            <EntityTypeMapping TypeName="GreenTripModel.UserPerference">
+              <MappingFragment StoreEntitySet="UserPerference">
+                <ScalarProperty Name="perferenceId" ColumnName="perferenceId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="perference" ColumnName="perference" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
